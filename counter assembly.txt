@@ -1,0 +1,214 @@
+.ORG 0x0000       
+ 
+// SET UP 
+MAIN:    
+  LDI  R16, HIGH(RAMEND)   
+  OUT  SPH, R16 
+  LDI  R16, LOW(RAMEND) 
+  OUT  SPL, R16 
+  CLR  R16 
+  LDI  R16, 0xFF     
+  OUT  DDRB, R16 
+ 
+// countdown 
+countdown: 
+ CALL zero 
+ CALL one 
+ CALL two 
+ CALL three 
+ CALL four 
+ CALL five 
+ CALL six 
+ CALL seven 
+ CALL eight 
+ CALL nine 
+ CALL ten 
+ CALL eleven 
+ CALL twelve 
+ CALL thirteen 
+ CALL fourteen 
+ CALL fiveteen 
+RJMP countdown 
+ 
+// TIMES /-------------------------------------------------------------------------------------------------------------------- 
+zero: 
+  SBI  PORTB, 4     
+  RCALL DELAY_half 
+  CBI  PORTB, 4 
+  RCALL DELAY_half 
+RET 
+ 
+one: ;0001 
+  SBI  PORTB, 3 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 3 
+RET 
+ 
+two: ;0010 
+  SBI  PORTB, 2 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 2 
+RET 
+ 
+three: ;0011 
+4 
+3/8/2022 
+  SBI  PORTB, 2 
+  SBI  PORTB, 3 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 2 
+  CBI  PORTB, 3 
+RET 
+ 
+four: ;0100 
+  SBI  PORTB, 1 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 1 
+RET 
+ 
+five: ;0101 
+  SBI  PORTB, 1 
+  SBI  PORTB, 3 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 1 
+  CBI  PORTB, 3 
+RET 
+ 
+six: ;0110 
+  SBI  PORTB, 1 
+  SBI  PORTB, 2 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 1 
+  CBI  PORTB, 2 
+RET 
+ 
+seven: ;0111 
+  SBI  PORTB, 1 
+  SBI  PORTB, 2 
+  SBI  PORTB, 3 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 1 
+  CBI  PORTB, 2 
+  CBI  PORTB, 3 
+RET 
+ 
+eight: ;1000 
+  SBI  PORTB, 0 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 0 
+RET 
+ 
+nine: ;1001 
+  SBI  PORTB, 0 
+  SBI  PORTB, 3 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 0 
+  CBI  PORTB, 3 
+5 
+3/8/2022 
+RET 
+ 
+ten: ;1010 
+  SBI  PORTB, 0 
+  SBI  PORTB, 2 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 0 
+  CBI  PORTB, 2 
+RET 
+ 
+eleven: ;1011 
+  SBI  PORTB, 0 
+  SBI  PORTB, 2 
+  SBI  PORTB, 3 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 0 
+  CBI  PORTB, 2 
+  CBI  PORTB, 3 
+RET 
+ 
+twelve: ;1100 
+  SBI  PORTB, 0 
+  SBI  PORTB, 1 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 0 
+  CBI  PORTB, 1 
+RET 
+ 
+thirteen: ;1101 
+  SBI  PORTB, 0 
+  SBI  PORTB, 1 
+  SBI  PORTB, 3 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 0 
+  CBI  PORTB, 1 
+  CBI  PORTB, 3 
+RET 
+ 
+fourteen: ;1110 
+  SBI  PORTB, 0 
+  SBI  PORTB, 1 
+  SBI  PORTB, 2 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 0 
+  CBI  PORTB, 1 
+  CBI  PORTB, 2 
+RET 
+ 
+fiveteen: ;1111 
+  SBI  PORTB, 0 
+  SBI  PORTB, 1 
+  SBI  PORTB, 2 
+  SBI  PORTB, 3 
+6 
+3/8/2022 
+  CALL zero 
+  CALL zero 
+  CBI  PORTB, 0 
+  CBI  PORTB, 1 
+  CBI  PORTB, 2 
+  CBI  PORTB, 3 
+RET 
+ 
+ 
+//------------------------------------------------------------------------------------- 
+// 1 second delay 
+DELAY:          
+  LDI  R16, 80       
+LOOP1: LDI  R17, 200 
+LOOP2: LDI  R18, 250 
+LOOP3: NOP   
+  DEC  R18 
+  BRNE LOOP3 
+  DEC  R17 
+  BRNE LOOP2 
+  DEC  R16 
+  BRNE LOOP1 
+RET 
+//------------------------------------------------------------------------------------- 
+//.5 seconds delay 
+DELAY_half:          
+  LDI  R16, 40       
+LOOP4: LDI  R17, 100 
+LOOP5: LDI  R18, 125 
+LOOP6: NOP   
+  DEC  R18 
+  BRNE LOOP3 
+  DEC  R17 
+  BRNE LOOP2 
+  DEC  R16 
+  BRNE LOOP1 
+RET 
